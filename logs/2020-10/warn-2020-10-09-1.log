@@ -1,0 +1,4 @@
+[15:33:07:560] [WARN] - org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions(SqlExceptionHelper.java:137) - SQL Error: 1406, SQLState: 22001
+[15:33:07:665] [ERROR] - org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions(SqlExceptionHelper.java:142) - Data truncation: Data too long for column 'token' at row 1
+[15:37:39:208] [WARN] - org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions(SqlExceptionHelper.java:137) - SQL Error: 1406, SQLState: 22001
+[15:37:39:209] [ERROR] - org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions(SqlExceptionHelper.java:142) - Data truncation: Data too long for column 'token' at row 1

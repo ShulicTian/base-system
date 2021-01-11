@@ -1,0 +1,16 @@
+[09:22:50:838] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
+[09:22:50:838] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
+[09:22:55:267] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
+[09:22:55:275] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
+[09:27:42:436] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[09:42:42:585] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
+[09:42:42:697] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
+[09:59:40:809] [WARN] - org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:166) - No MyBatis mapper was found in '[org.ks365.osmp.**.dao.mapper]' package. Please check your configuration.
+[10:00:40:946] [WARN] - org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:166) - No MyBatis mapper was found in '[org.ks365.osmp.**.dao.mapper]' package. Please check your configuration.
+[10:00:40:963] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
+[10:01:00:486] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
+[10:01:00:493] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
+[10:01:02:787] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
+[11:05:49:862] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[11:05:53:010] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[11:05:56:008] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常

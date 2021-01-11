@@ -1,0 +1,4 @@
+[09:47:40:654] [WARN] - org.ks365.osmp.sys.web.SystemController.login(SystemController.java:70) - 账号错误
+[11:08:26:386] [WARN] - org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:166) - No MyBatis mapper was found in '[org.ks365.osmp.**.dao.mapper]' package. Please check your configuration.
+[11:09:43:294] [WARN] - org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:166) - No MyBatis mapper was found in '[org.ks365.osmp.**.dao.mapper]' package. Please check your configuration.
+[18:07:14:632] [WARN] - org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:166) - No MyBatis mapper was found in '[org.ks365.osmp.**.dao.mapper]' package. Please check your configuration.

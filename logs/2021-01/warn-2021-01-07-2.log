@@ -1,0 +1,15 @@
+[10:00:40:484] [WARN] - org.springframework.context.support.AbstractApplicationContext.__refresh(AbstractApplicationContext.java:559) - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 9701 is already in use
+[10:00:40:806] [ERROR] - org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter.report(LoggingFailureAnalysisReporter.java:40) - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 9701 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 9701 or configure this application to listen on another port.
+

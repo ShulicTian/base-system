@@ -1,0 +1,21 @@
+[10:00:40:806] [ERROR] - org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter.report(LoggingFailureAnalysisReporter.java:40) - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 9701 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 9701 or configure this application to listen on another port.
+
+[11:22:15:155] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[11:24:23:372] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[11:30:14:038] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[11:30:39:920] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[11:31:15:767] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[11:34:20:351] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[15:42:25:895] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常

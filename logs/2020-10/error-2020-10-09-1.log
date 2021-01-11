@@ -1,0 +1,2 @@
+[15:33:07:665] [ERROR] - org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions(SqlExceptionHelper.java:142) - Data truncation: Data too long for column 'token' at row 1
+[15:37:39:209] [ERROR] - org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions(SqlExceptionHelper.java:142) - Data truncation: Data too long for column 'token' at row 1

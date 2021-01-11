@@ -1,0 +1,5 @@
+[15:12:40:711] [WARN] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.Unauthorized(GlobalExceptionAdvice.java:49) - 暂无调用权限 Subject does not have permission [sys:menu:edit]
+[15:13:06:874] [WARN] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.Unauthorized(GlobalExceptionAdvice.java:49) - 暂无调用权限 Subject does not have permission [sys:menu:edit]
+[15:14:23:622] [WARN] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.Unauthorized(GlobalExceptionAdvice.java:49) - 暂无调用权限 Subject does not have permission [sys:menu:edit]
+[15:48:40:905] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[15:50:50:261] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常

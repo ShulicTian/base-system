@@ -1,0 +1,18 @@
+[10:13:52:054] [ERROR] - org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter.report(LoggingFailureAnalysisReporter.java:40) - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field areaDao in org.ks365.osmp.sys.service.AreaService required a bean of type 'org.ks365.osmp.sys.dao.AreaDao' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.ks365.osmp.sys.dao.AreaDao' in your configuration.
+

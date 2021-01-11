@@ -1,0 +1,19 @@
+[10:13:46:831] [WARN] - org.springframework.context.support.AbstractApplicationContext.__refresh(AbstractApplicationContext.java:559) - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'areaService': Unsatisfied dependency expressed through field 'areaDao'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.ks365.osmp.sys.dao.AreaDao' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+[10:13:52:054] [ERROR] - org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter.report(LoggingFailureAnalysisReporter.java:40) - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field areaDao in org.ks365.osmp.sys.service.AreaService required a bean of type 'org.ks365.osmp.sys.dao.AreaDao' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.ks365.osmp.sys.dao.AreaDao' in your configuration.
+

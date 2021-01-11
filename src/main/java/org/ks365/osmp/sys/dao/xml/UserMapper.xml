@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ks365.osmp.sys.dao.mapper.UserMapper">
+    <update id="updateUserInfo" parameterType="org.ks365.osmp.sys.entity.UserEntity">
+        UPDATE sys_user
+        SET name      = #{name},
+            nike_name = #{nikeName},
+            id_card   = #{idCard},
+            mobile    = #{mobile},
+            email     = #{email}
+        WHERE id = #{id}
+    </update>
+</mapper>
