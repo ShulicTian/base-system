@@ -1,0 +1,12 @@
+package PATH.dao;
+
+import PATH.entity.ENTITY_NAMEEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * DESCDAO接口
+ *
+ * @author tianslc
+ */
+public interface ENTITY_NAMEDao extends JpaRepository<ENTITY_NAMEEntity, Integer> {
+}

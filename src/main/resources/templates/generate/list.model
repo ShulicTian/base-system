@@ -1,0 +1,152 @@
+<template>
+    <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+        <el-tab-pane label="${CHINESE}列表" name="list">
+            <common-table-filter :template-data="filterTemplateData" @search="search" />
+            <common-table :table-data="tableData"
+                          :template-data="templateData"
+                          style="width: 100%;"
+                          @edit="edit"
+                          @remove="remove" />
+            <div style="text-align: left;padding-top: 15px;">
+                <el-pagination
+                    :current-page.sync="params.page"
+                    :page-size="params.size"
+                    :total="total"
+                    background
+                    layout="total, prev, pager, next"
+                    @current-change="changePage"
+                >
+                </el-pagination>
+            </div>
+        </el-tab-pane>
+        <el-tab-pane v-if="this.$CommonUtils.hasPermission('${PERMISSION}:edit')" :label="addLabel" name="add">
+            <${FORM_NAME}-form ref="${ALIAS}Form"
+                             :form-data="${ALIAS}Data"
+                             style="width: 100%;"
+                             @saved="saved" />
+        </el-tab-pane>
+    </el-tabs>
+</template>
+
+<script>
+import ${NAME}Form from './${NAME}Form';
+import CommonTable from 'components/common/CommonTable';
+import CommonTableFilter from 'components/common/CommonTableFilter';
+
+export default {
+    name: '${NAME}Manage',
+    components: { CommonTable, CommonTableFilter, ${NAME}Form },
+    data: function() {
+        return {
+            activeName: 'list',
+            addLabel: '创建${CHINESE}',
+            templateData: [],
+            tableData: [],
+            ${ALIAS}Data: {},
+            filterTemplateData: [
+                {
+                    key: 'actives', val: '', data: [
+                        { name: '查询', eventName: 'search', type: 'primary', permission: '${PERMISSION}:view' }
+                    ], type: 'button'
+                }
+            ],
+            total: 0,
+            params: {
+                page: 1,
+                size: 15
+            }
+        };
+    },
+    methods: {
+        //初始化form数据
+        initData() {
+            this.${ALIAS}Data = ${COLUMNS};
+        },
+        //保存后操作
+        saved() {
+            this.activeName = 'list';
+            this.addLabel = '创建${CHINESE}';
+            this.initData();
+            this.resetForm();
+            this.getList();
+        },
+        //删除任务
+        remove(id) {
+            this.$confirm('删除后数据将无法恢复，确认删除?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                remove${NAME}({ id: id }).then(ret => {
+                    if (ret.code === '1') {
+                        this.$message.success('删除${CHINESE}成功');
+                        this.getList();
+                    } else {
+                        this.$message.warning('删除${CHINESE}失败');
+                    }
+                });
+            }).catch(() => {
+                this.$message.warning('已取消删除');
+            });
+        },
+        //编辑任务
+        edit(id) {
+            this.activeName = 'add';
+            let obj = this.$CommonUtils.cloneObj(this.tableData.filter(obj => obj.id == id)[0]);
+            this.${ALIAS}Data = obj;
+            this.addLabel = '修改${CHINESE}';
+            this.resetForm();
+        },
+        search(params) {
+            this.getList();
+        },
+        changePage() {
+            this.getList();
+        },
+        getList() {
+            ${ALIAS}List(this.params).then(ret => {
+                if (ret.code === '1') {
+                    if (ret['result']) {
+                        this.tableData = this.handleList(ret.result.content);
+                        this.total = ret.result.totalElements;
+                    } else {
+                        this.tableData = [];
+                        this.$message.warning('${CHINESE}列表为空');
+                    }
+                } else {
+                    this.$message.warning('获取${CHINESE}列表失败');
+                }
+            });
+        },
+        handleList(list) {
+            list.forEach(obj => {
+                obj.actives = [
+                    { name: '修改', eventName: 'edit', permission: '${PERMISSION}:edit' },
+                    { name: '删除', eventName: 'remove', permission: '${PERMISSION}:edit' }
+                ];
+            });
+            return list;
+        },
+        //点击tab事件
+        handleClick(key) {
+            this.addLabel = '创建${CHINESE}';
+            this.initData();
+            if (this.activeName == 'add') {
+                this.resetForm();
+            }
+        },
+        //重置表单
+        resetForm() {
+            if (this.$refs['${ALIAS}Form']) {
+                this.$refs['${ALIAS}Form'].resetForm();
+            }
+        }
+    },
+    created() {
+        this.getList();
+    }
+};
+</script>
+
+<style scoped>
+</style>

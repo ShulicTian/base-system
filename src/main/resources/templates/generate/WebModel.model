@@ -1,0 +1,52 @@
+package PATH.web;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.ks365.osmp.common.ctrl.BaseController;
+import org.ks365.osmp.common.entity.ResponseEntity;
+import PATH.entity.ENTITY_NAMEEntity;
+import PATH.service.ENTITY_NAMEService;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * DESCController
+ *
+ * @author tianslc
+ */
+@RestController
+@RequestMapping(value = "URL")
+public class ENTITY_NAMEController extends BaseController {
+
+    private final ENTITY_NAMEService ENTITY_ALIASService;
+
+    public ENTITY_NAMEController(ENTITY_NAMEService ENTITY_ALIASService) {
+        this.ENTITY_ALIASService = ENTITY_ALIASService;
+    }
+
+    @RequiresPermissions("PERMISSION_PREFIX:view")
+    @PostMapping("list")
+    public ResponseEntity<Page<ENTITY_NAMEEntity>> list(@RequestBody ENTITY_NAMEEntity ENTITY_ALIASEntity) {
+        return new ResponseEntity<Page<ENTITY_NAMEEntity>>().ok("获取成功").result(ENTITY_ALIASService.getPageByColumn(ENTITY_ALIASEntity));
+    }
+
+    @RequiresPermissions("PERMISSION_PREFIX:view")
+    @PostMapping("findList")
+    public ResponseEntity<List<ENTITY_NAMEEntity>> findList(@RequestBody ENTITY_NAMEEntity ENTITY_ALIASEntity) {
+        return new ResponseEntity<List<ENTITY_NAMEEntity>>().ok("获取成功").result(ENTITY_ALIASService.getListByColumn(ENTITY_ALIASEntity));
+    }
+
+    @RequiresPermissions("PERMISSION_PREFIX:edit")
+    @PostMapping("save")
+    public ResponseEntity<ENTITY_NAMEEntity> save(@RequestBody ENTITY_NAMEEntity ENTITY_ALIASEntity) {
+        return new ResponseEntity<ENTITY_NAMEEntity>().ok("保存成功").result(ENTITY_ALIASService.save(ENTITY_ALIASEntity));
+    }
+
+    @RequiresPermissions("PERMISSION_PREFIX:edit")
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity delete(@PathVariable Integer id) {
+        ENTITY_ALIASService.deleteById(id);
+        return new ResponseEntity().ok("删除成功");
+    }
+}

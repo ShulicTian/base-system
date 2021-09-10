@@ -1,0 +1,83 @@
+<template>
+    <common-form ref="${ALIAS}Form"
+                 :rules="rules"
+                 :target-data="formData"
+                 :template-data="templateData"
+                 @save="save" />
+</template>
+
+<script>
+import CommonForm from 'components/common/CommonForm';
+
+export default {
+    name: '${NAME}Form',
+    data: function() {
+        return {
+            templateData: [
+                /*{ key: 'name', val: '角色名称', type: 'text' },
+                { key: 'enName', val: '英文名', type: 'text' },
+                {
+                    key: 'roleType',
+                    val: '角色类型',
+                    type: 'radio',
+                    data: this.$CommonUtils.dictToSelectorByType('role_type')
+                },
+                {
+                    key: 'roleType',
+                    val: '角色类型',
+                    type: 'select',
+                    data: this.$CommonUtils.dictToSelectorByType('role_type')
+                },
+                {
+                    key: 'usable',
+                    val: '是否可用',
+                    type: 'radio',
+                    data: this.$CommonUtils.dictToSelectorByType('role_usable')
+                },
+                { key: 'isShow', val: '可见', type: 'switch' },
+                { key: 'menuIdList', val: '角色权限', type: 'treeCheckbox', data: [] },
+                {
+                    key: 'actives', val: '', data: [
+                        { name: '保存', eventName: 'save', type: 'primary' }
+                    ], type: 'button'
+                }*/
+            ],
+            rules: {
+                /*name: [
+                    { required: true, message: '请输入名称', trigger: 'blur' },
+                    { max: 100, message: '长度最多不能超过100', trigger: 'blur' }
+                ],
+                parentId: [
+                    { required: true, message: '请选上级菜单', trigger: 'change' }
+                ]*/
+            }
+        };
+    },
+    props: {
+        formData: Object
+    },
+    components: { CommonForm },
+    methods: {
+        save(obj) {
+            save${NAME}(obj).then(ret => {
+                if (ret.code === '1') {
+                    this.$message.success('保存${CHINESE}成功');
+                    this.$emit('saved');
+                } else {
+                    this.$message.warning('保存${CHINESE}失败');
+                }
+            });
+        },
+        resetForm() {
+            if (this.$refs['${ALIAS}Form']) {
+                this.$refs['${ALIAS}Form'].resetForm();
+            }
+        }
+    },
+    created() {
+    },
+    watch: {}
+};
+</script>
+<style scoped>
+</style>
