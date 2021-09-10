@@ -32,12 +32,16 @@ public class MenuService {
         return menuDao.findAll();
     }
 
-    public List<MenuEntity> getListByColunm(MenuEntity menuEntity) {
+    public List<MenuEntity> getListByColumn(MenuEntity menuEntity) {
         Example<MenuEntity> example = Example.of(menuEntity);
-        return menuDao.findAll(example);
+        List<MenuEntity> list = menuDao.findAll(example);
+        if ("1".equals(menuEntity.getType())) {
+            list.add(getOneByColumn(new MenuEntity(0)));
+        }
+        return list;
     }
 
-    public MenuEntity getOneByColunm(MenuEntity menuEntity) {
+    public MenuEntity getOneByColumn(MenuEntity menuEntity) {
         Example<MenuEntity> example = Example.of(menuEntity);
         Optional<MenuEntity> optional = menuDao.findOne(example);
         if (optional.isPresent()) {
@@ -49,13 +53,35 @@ public class MenuService {
     @CacheEvict(value = "menuList", allEntries = true)
     @Transactional(readOnly = false)
     public MenuEntity save(MenuEntity menuEntity) {
-        return menuDao.saveAndFlush(menuEntity);
+        menuEntity = menuDao.saveAndFlush(menuEntity);
+        reSortChildren(menuEntity);
+        return menuEntity;
+    }
+
+    @CacheEvict(value = "menuList", allEntries = true)
+    @Transactional(readOnly = false)
+    public void reSortChildren(MenuEntity parent) {
+        MenuEntity menuEntity = new MenuEntity();
+        menuEntity.setParentId(parent.getId());
+        List<MenuEntity> list = getListByColumn(menuEntity);
+        list.forEach(menu -> {
+            menu.setType(parent.getType());
+            menu.setParentIds(parent.getParentIds() + parent.getId() + ",");
+        });
+        menuDao.saveAll(list);
     }
 
     @CacheEvict(value = "menuList", allEntries = true)
     @Transactional(readOnly = false)
     public void delete(MenuEntity menuEntity) {
         menuDao.delete(menuEntity);
+    }
+
+    @CacheEvict(value = "menuList", allEntries = true)
+    @Transactional(readOnly = false)
+    public void delete(Integer id) {
+        menuDao.deleteWithRole(id);
+        deleteById(id);
     }
 
     @CacheEvict(value = "menuList", allEntries = true)

@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.service;
 
 import org.ks365.osmp.sys.dao.AreaDao;
@@ -34,12 +32,12 @@ public class AreaService {
         return areaDao.findAll();
     }
 
-    public List<AreaEntity> getListByColunm(AreaEntity areaEntity) {
+    public List<AreaEntity> getListByColumn(AreaEntity areaEntity) {
         Example<AreaEntity> example = Example.of(areaEntity);
         return areaDao.findAll(example, Sort.by("sort"));
     }
 
-    public AreaEntity getOneByColunm(AreaEntity areaEntity) {
+    public AreaEntity getOneByColumn(AreaEntity areaEntity) {
         Example<AreaEntity> example = Example.of(areaEntity);
         Optional<AreaEntity> optional = areaDao.findOne(example);
         if (optional.isPresent()) {
@@ -52,7 +50,20 @@ public class AreaService {
     @Transactional(readOnly = false)
     public AreaEntity save(AreaEntity areaEntity) {
         areaEntity = areaDao.saveAndFlush(areaEntity);
+        reSortChildren(areaEntity);
         return areaEntity;
+    }
+
+    @CacheEvict(value = "menuList", allEntries = true)
+    @Transactional(readOnly = false)
+    public void reSortChildren(AreaEntity parent) {
+        AreaEntity areaEntity = new AreaEntity();
+        areaEntity.setParentId(parent.getId());
+        List<AreaEntity> list = getListByColumn(areaEntity);
+        list.forEach(area -> {
+            area.setParentIds(parent.getParentIds() + parent.getId() + ",");
+        });
+        areaDao.saveAll(list);
     }
 
     public AreaEntity getById(Integer id) {

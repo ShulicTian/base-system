@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -31,10 +29,9 @@ public class DictController extends BaseController {
     @RequiresPermissions("sys:dict:view")
     @PostMapping("list")
     public ResponseEntity<Page<DictEntity>> list(@RequestBody DictEntity dictEntity) {
-        return new ResponseEntity<Page<DictEntity>>().ok("获取成功").result(dictService.getListByColunm(dictEntity));
+        return new ResponseEntity<Page<DictEntity>>().ok("获取成功").result(dictService.getListByColumn(dictEntity));
     }
 
-    @RequiresPermissions("sys:dict:view")
     @PostMapping("allList")
     public ResponseEntity<List<DictEntity>> allList() {
         return new ResponseEntity<List<DictEntity>>().ok("获取成功").result(dictService.findAllList());

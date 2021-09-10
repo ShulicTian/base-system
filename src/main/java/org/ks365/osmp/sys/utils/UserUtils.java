@@ -15,6 +15,7 @@ import org.ks365.osmp.sys.dao.AreaDao;
 import org.ks365.osmp.sys.dao.MenuDao;
 import org.ks365.osmp.sys.dao.RoleDao;
 import org.ks365.osmp.sys.dao.UserDao;
+import org.ks365.osmp.sys.dao.mapper.UserMapper;
 import org.ks365.osmp.sys.entity.AreaEntity;
 import org.ks365.osmp.sys.entity.MenuEntity;
 import org.ks365.osmp.sys.entity.RoleEntity;
@@ -22,7 +23,9 @@ import org.ks365.osmp.sys.entity.UserEntity;
 import org.springframework.data.domain.Example;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 用户相关工具类
@@ -39,10 +42,112 @@ public class UserUtils {
     public static final String CACHE_AREA_LIST = "areaList";
     public static final String USER_CACHE_ID_ = "id_";
     public static final String USER_CACHE_LOGIN_NAME_ = "loginName_";
+    private static UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private static UserDao userDao = SpringContextHolder.getBean(UserDao.class);
     private static RoleDao roleDao = SpringContextHolder.getBean(RoleDao.class);
     private static MenuDao menuDao = SpringContextHolder.getBean(MenuDao.class);
     private static AreaDao areaDao = SpringContextHolder.getBean(AreaDao.class);
+
+    public static boolean isAdmin() {
+        return getCurrentUser() != null && getCurrentUser().isAdmin();
+    }
+
+    public static UserEntity getCurrentUser() {
+        Principal principal = getPrincipal();
+        if (principal != null) {
+            UserEntity user = get(principal.getId());
+            if (user != null) {
+                return user;
+            }
+            return null;
+        }
+        return null;
+    }
+
+    public static boolean hasRoleById(Integer id) {
+        long exist = Objects.requireNonNull(getCurrentUser()).getRoleList().stream().filter(role -> role.getId().equals(id)).count();
+        return exist > 0;
+    }
+
+    public static boolean hasRoleByEnName(String enName) {
+        long exist = Objects.requireNonNull(getCurrentUser()).getRoleList().stream().filter(role -> role.getEnName().equals(enName)).count();
+        return exist > 0;
+    }
+
+    public static boolean hasRoleByName(String name) {
+        long exist = Objects.requireNonNull(getCurrentUser()).getRoleList().stream().filter(role -> role.getName().equals(name)).count();
+        return exist > 0;
+    }
+
+    public static List<String> getCurrentUserRoleNames() {
+        return Objects.requireNonNull(getCurrentUser()).getRoleList().stream().map(RoleEntity::getName).collect(Collectors.toList());
+    }
+
+    public static Integer getCurrentUserId() {
+        UserEntity user = getCurrentUser();
+        if (user != null) {
+            return user.getId();
+        }
+        return null;
+    }
+
+    /**
+     * 获取授权主要对象
+     */
+    public static Subject getSubject() {
+        return SecurityUtils.getSubject();
+    }
+
+    /**
+     * 获取当前登录者对象
+     */
+    public static Principal getPrincipal() {
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            Principal principal = (Principal) subject.getPrincipal();
+            if (principal != null) {
+                return principal;
+            }
+        } catch (UnavailableSecurityManagerException | InvalidSessionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Session getSession() {
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession(false);
+            if (session == null) {
+                session = subject.getSession();
+            }
+            if (session != null) {
+                return session;
+            }
+        } catch (InvalidSessionException e) {
+
+        }
+        return null;
+    }
+
+    // ============== UserEntity Cache ==============
+
+    public static Object getCache(String key) {
+        return getCache(key, null);
+    }
+
+    public static Object getCache(String key, Object defaultValue) {
+        Object obj = getSession().getAttribute(key);
+        return obj == null ? defaultValue : obj;
+    }
+
+    public static void putCache(String key, Object value) {
+        Objects.requireNonNull(getSession()).setAttribute(key, value);
+    }
+
+    public static void removeCache(String key) {
+        Objects.requireNonNull(getSession()).removeAttribute(key);
+    }
 
     /**
      * 根据ID获取用户
@@ -93,12 +198,14 @@ public class UserUtils {
         List<RoleEntity> roleList = (List<RoleEntity>) getCache(CACHE_ROLE_LIST);
         if (roleList == null) {
             UserEntity user = getCurrentUser();
-            if (user.isAdmin()) {
-                roleList = roleDao.findAll();
-            } else {
-                roleList = user.getRoleList();
+            if (user != null) {
+                if (user.isAdmin()) {
+                    roleList = roleDao.findAll();
+                } else {
+                    roleList = user.getRoleList();
+                }
+                putCache(CACHE_ROLE_LIST, roleList);
             }
-            putCache(CACHE_ROLE_LIST, roleList);
         }
         return roleList;
     }
@@ -112,15 +219,18 @@ public class UserUtils {
         List<MenuEntity> menuList = (List<MenuEntity>) getCache(CACHE_MENU_LIST);
         if (menuList == null) {
             UserEntity user = getCurrentUser();
-            if (user.isAdmin()) {
-                menuList = menuDao.findAll();
-            } else {
-                List<MenuEntity> finalMenuList = Lists.newArrayList();
-                List<RoleEntity> roleList = getCurrentUser().getRoleList();
-                roleList.forEach(role -> finalMenuList.addAll(role.getMenuList()));
-                menuList = finalMenuList;
+            if (user != null) {
+                if (user.isAdmin()) {
+                    menuList = menuDao.findAll();
+                } else {
+                    List<MenuEntity> finalMenuList = Lists.newArrayList();
+                    List<RoleEntity> roleList = user.getRoleList();
+                    roleList.forEach(role -> finalMenuList.addAll(role.getMenuList()));
+                    menuList = finalMenuList;
+                    menuList.add(new MenuEntity(0, 0));
+                }
+                putCache(CACHE_MENU_LIST, menuList);
             }
-            putCache(CACHE_MENU_LIST, menuList);
         }
         return menuList;
     }
@@ -157,87 +267,33 @@ public class UserUtils {
      * @param user
      */
     public static void clearCache(UserEntity user) {
-        CacheUtils.remove(USER_CACHE, USER_CACHE_ID_ + user.getId());
-        CacheUtils.remove(USER_CACHE, USER_CACHE_LOGIN_NAME_ + user.getUsername());
-    }
-
-    public static UserEntity getCurrentUser() {
-        Principal principal = getPrincipal();
-        if (principal != null) {
-            UserEntity user = get(principal.getId());
-            if (user != null) {
-                return user;
-            }
-            return new UserEntity();
-        }
-        return new UserEntity();
-    }
-
-    public static Integer getCurrentUserId() {
-        UserEntity user = getCurrentUser();
         if (user != null) {
-            return user.getId();
+            CacheUtils.remove(USER_CACHE, USER_CACHE_ID_ + user.getId());
+            CacheUtils.remove(USER_CACHE, USER_CACHE_LOGIN_NAME_ + user.getUsername());
         }
-        return null;
     }
 
-    /**
-     * 获取授权主要对象
-     */
-    public static Subject getSubject() {
-        return SecurityUtils.getSubject();
+    public static boolean isExists(UserEntity userEntity) {
+        Example<UserEntity> example = Example.of(userEntity);
+        return userDao.exists(example);
     }
 
-    /**
-     * 获取当前登录者对象
-     */
-    public static Principal getPrincipal() {
-        try {
-            Subject subject = SecurityUtils.getSubject();
-            Principal principal = (Principal) subject.getPrincipal();
-            if (principal != null) {
-                return principal;
-            }
-        } catch (UnavailableSecurityManagerException e) {
-            e.printStackTrace();
-        } catch (InvalidSessionException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static boolean isExists(String mobile) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setMobile(mobile);
+        return isExists(userEntity);
     }
 
-    public static Session getSession() {
-        try {
-            Subject subject = SecurityUtils.getSubject();
-            Session session = subject.getSession(false);
-            if (session == null) {
-                session = subject.getSession();
-            }
-            if (session != null) {
-                return session;
-            }
-        } catch (InvalidSessionException e) {
-
-        }
-        return null;
+    public static UserEntity save(UserEntity userEntity) {
+        return userDao.saveAndFlush(userEntity);
     }
 
-    // ============== UserEntity Cache ==============
-
-    public static Object getCache(String key) {
-        return getCache(key, null);
+    public static UserEntity getByMobile(String mobile) {
+        return userMapper.getByMobile(mobile);
     }
 
-    public static Object getCache(String key, Object defaultValue) {
-        Object obj = getSession().getAttribute(key);
-        return obj == null ? defaultValue : obj;
+    public static UserEntity get(UserEntity userEntity) {
+        return userDao.findOne(Example.of(userEntity)).orElse(null);
     }
 
-    public static void putCache(String key, Object value) {
-        getSession().setAttribute(key, value);
-    }
-
-    public static void removeCache(String key) {
-        getSession().removeAttribute(key);
-    }
 }

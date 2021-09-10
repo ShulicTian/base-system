@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.entity;
 
 import lombok.Data;
@@ -41,6 +39,9 @@ public class DictEntity extends BaseEntity {
     @Column(name = "description", length = 100)
     private String description;
 
+    @Column(name = "color", length = 100)
+    private String color;
+
     @NotNull
     @Column(name = "sort", length = 10)
     private Integer sort;
@@ -56,10 +57,5 @@ public class DictEntity extends BaseEntity {
     public DictEntity(String value, String label) {
         this.value = value;
         this.label = label;
-    }
-
-    @Override
-    public String toString() {
-        return label;
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * UserDao For JPA
  *
@@ -30,4 +32,20 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
     @Modifying
     @Query(value = "UPDATE UserEntity user SET user.password=:#{#userEntity.password} WHERE user.id=:#{#userEntity.id}")
     void updatePassword(@Param("userEntity") UserEntity userEntity);
+
+    // 从用户名获取用户列表
+    @Query(value = "select * from sys_user WHERE username=?1 OR mobile=?1 limit 1", nativeQuery = true)
+    UserEntity getUserByMobile(@Param("mobile") String mobile);
+
+    @Query(value = "select * from sys_user WHERE username=?1 " +
+            " UNION select * from sys_user WHERE mobile=?2 " +
+            " UNION select * from sys_user WHERE id_card=?1 ", nativeQuery = true)
+    List<UserEntity> getUserByUserNameAndPhone(String username, String phone);
+
+
+    @Query(value = "select * from sys_user WHERE mobile=?1 ", nativeQuery = true)
+    List<UserEntity> getUserByPhone(String mobile);
+
+    @Query(value = "select * from sys_user WHERE id_card=?1 ", nativeQuery = true)
+    List<UserEntity> getUserIdCard(String idCard);
 }

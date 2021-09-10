@@ -10,6 +10,8 @@ import org.ks365.osmp.sys.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 用户管理
  *
@@ -28,14 +30,26 @@ public class UserController extends BaseController {
     @RequiresPermissions("sys:user:view")
     @PostMapping("list")
     public ResponseEntity<Page<UserEntity>> list(@RequestBody UserEntity userEntity) {
-        return new ResponseEntity<Page<UserEntity>>().ok("获取成功").result(userService.getListByColunm(userEntity));
+        return new ResponseEntity<Page<UserEntity>>().ok("获取成功").result(userService.getPageByColumn(userEntity));
+    }
+
+    @RequiresPermissions("sys:user:view")
+    @PostMapping("findList")
+    public ResponseEntity<List<UserEntity>> findList(@RequestBody UserEntity userEntity) {
+        return new ResponseEntity<List<UserEntity>>().ok("获取成功").result(userService.getListByColumn(userEntity));
+    }
+
+    @RequiresPermissions("sys:user:view")
+    @PostMapping("findListBySelector")
+    public ResponseEntity<List<UserEntity>> findListBySelector(@RequestBody UserEntity userEntity) {
+        return new ResponseEntity<List<UserEntity>>().ok("获取成功").result(userService.findListBySelector(userEntity));
     }
 
     @RequiresPermissions("sys:user:edit")
     @PostMapping("save")
     public ResponseEntity<UserEntity> save(@RequestBody UserEntity userEntity) {
         if (StringUtils.isNotEmpty(userEntity.getPassword())) {
-            AuthUtils.entryptPassword(userEntity.getPassword());
+            userEntity.setPassword(AuthUtils.entryptPassword(userEntity.getPassword()));
         } else {
             if (userEntity.getId() != null) {
                 UserEntity user = userService.getById(userEntity.getId());
@@ -77,7 +91,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("isExist")
-    public ResponseEntity isExist(@RequestBody UserEntity userEntity) {
-        return new ResponseEntity().ok("请求成功").result(userService.isExist(userEntity));
+    public ResponseEntity<Boolean> isExist(@RequestBody UserEntity userEntity) {
+        return new ResponseEntity<Boolean>().ok("请求成功").result(userService.isExist(userEntity));
     }
 }

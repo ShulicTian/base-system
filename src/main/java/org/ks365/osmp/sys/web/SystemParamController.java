@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -10,8 +8,6 @@ import org.ks365.osmp.sys.entity.SystemParamEntity;
 import org.ks365.osmp.sys.service.SystemParamService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 系统参数
@@ -31,13 +27,19 @@ public class SystemParamController extends BaseController {
     @RequiresPermissions("sys:param:view")
     @PostMapping("list")
     public ResponseEntity<Page<SystemParamEntity>> list(@RequestBody SystemParamEntity systemParamEntity) {
-        return new ResponseEntity<Page<SystemParamEntity>>().ok("获取成功").result(systemParamService.getListByColunm(systemParamEntity));
+        return new ResponseEntity<Page<SystemParamEntity>>().ok("获取成功").result(systemParamService.getListByColumn(systemParamEntity));
     }
 
     @RequiresPermissions("sys:param:edit")
     @PostMapping("save")
     public ResponseEntity<SystemParamEntity> save(@RequestBody SystemParamEntity systemParamEntity) {
         return new ResponseEntity<SystemParamEntity>().ok("保存成功").result(systemParamService.save(systemParamEntity));
+    }
+
+    @RequiresPermissions("sys:param:view")
+    @PostMapping("get")
+    public ResponseEntity<SystemParamEntity> get(@RequestBody SystemParamEntity systemParamEntity) {
+        return new ResponseEntity<SystemParamEntity>().ok("获取成功").result(systemParamService.getOneByColumn(systemParamEntity));
     }
 
     @RequiresPermissions("sys:param:edit")

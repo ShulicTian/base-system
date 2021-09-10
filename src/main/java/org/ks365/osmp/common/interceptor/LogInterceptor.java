@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.common.interceptor;
 
 import org.ks365.osmp.common.utils.LogUtils;
@@ -53,16 +51,12 @@ public class LogInterceptor implements HandlerInterceptor {
                                 Object handler, Exception ex) throws Exception {
 
         // 保存日志
-        LogUtils.saveLog(request, handler, ex, request.getParameter("menuName"));
+        if (!request.getRequestURI().equals("/osmp/sys/log/sve")) {
+            LogUtils.saveLog(request, handler, ex, request.getParameter("menuName"));
+        }
 
         // 打印JVM信息。
         if (logger.isDebugEnabled()) {
-            //	long beginTime = startTimeThreadLocal.get();//得到线程绑定的局部变量（开始时间）
-            //	long endTime = System.currentTimeMillis(); 	//2、结束时间
-//	        logger.debug("计时结束：{}  耗时：{}  URI: {}  最大内存: {}m  已分配内存: {}m  已分配内存中的剩余空间: {}m  最大可用内存: {}m",
-//	        		new SimpleDateFormat("hh:mm:ss.SSS").format(endTime), DateUtils.formatDateTime(endTime - beginTime),
-//					request.getRequestURI(), Runtime.getRuntime().maxMemory()/1024/1024, Runtime.getRuntime().totalMemory()/1024/1024, Runtime.getRuntime().freeMemory()/1024/1024, 
-//					(Runtime.getRuntime().maxMemory()-Runtime.getRuntime().totalMemory()+Runtime.getRuntime().freeMemory())/1024/1024); 
 //	        //删除线程变量中的数据，防止内存泄漏
             startTimeThreadLocal.remove();
         }

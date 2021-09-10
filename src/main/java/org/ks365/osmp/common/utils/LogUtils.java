@@ -1,21 +1,16 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.common.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.ks365.osmp.sys.dao.LogDao;
 import org.ks365.osmp.sys.dao.MenuDao;
 import org.ks365.osmp.sys.entity.LogEntity;
 import org.ks365.osmp.sys.entity.MenuEntity;
 import org.ks365.osmp.sys.entity.UserEntity;
 import org.ks365.osmp.sys.utils.UserUtils;
-import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +77,7 @@ public class LogUtils {
                 logEntity.setTitle(logEntity.getRequestUri());
             }
             // 如果有异常，设置异常信息
-            logEntity.setException(Exceptions.getStackTraceAsString(ex));
+            logEntity.setException(Exceptions.getMessage(ex));
             // 如果无标题并无异常日志，则不保存信息
             if (StringUtils.isBlank(logEntity.getTitle()) && StringUtils.isBlank(logEntity.getException())) {
                 return;
@@ -97,8 +92,6 @@ public class LogUtils {
      */
     public static String getMenuNamePath(String requestUri, String permission) {
         String href = StringUtils.substringAfter(requestUri, "");
-        @SuppressWarnings("unchecked")
-//        Map<String, String> menuMap = (Map<String, String>) CacheUtils.get(CACHE_MENU_NAME_PATH_MAP);
         Map<String, String> menuMap = null;
         if (menuMap == null) {
             menuMap = Maps.newHashMap();
@@ -123,15 +116,6 @@ public class LogUtils {
                     namePath = StringUtils.join(namePathList, "-");
                 }
                 menuMap.put(href, namePath);
-/*                // 设置菜单名称路径
-                if (StringUtils.isNotBlank(menu.getHref())) {
-
-                } else if (StringUtils.isNotBlank(menu.getPermission())) {
-                    for (String p : StringUtils.split(menu.getPermission())) {
-                        menuMap.put(p, namePath);
-                    }
-                }*/
-
             }
             CacheUtils.put(CACHE_MENU_NAME_PATH_MAP, menuMap);
         }
@@ -149,6 +133,5 @@ public class LogUtils {
         }
         return menuNamePath;
     }
-
 
 }

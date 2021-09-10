@@ -16,6 +16,7 @@ public class RedisProperties {
     private String host;
     private Integer port;
     private String password;
+    private int timeout;
     private Lettuce lettuce;
 }
 

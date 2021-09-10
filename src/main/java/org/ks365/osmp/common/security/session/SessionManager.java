@@ -1,9 +1,6 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.common.security.session;
 
-import org.ks365.osmp.common.utils.StringUtils;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -15,6 +12,9 @@ import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.util.WebUtils;
+import org.ks365.osmp.common.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -33,6 +33,7 @@ public class SessionManager extends DefaultWebSessionManager {
 
     private final static String AUTH_TOKEN = "authToken";
     private final static String SYS_COOKIE = "sys_cookie";
+    private static final Logger logger = LoggerFactory.getLogger(DefaultWebSessionManager.class);
 
     public SessionManager() {
         super();
@@ -52,8 +53,7 @@ public class SessionManager extends DefaultWebSessionManager {
                 cookie.saveTo(rq, rs);
             }
             // 设置当前session状态
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,
-                    ShiroHttpServletRequest.URL_SESSION_ID_SOURCE); // session来源与url
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, ShiroHttpServletRequest.COOKIE_SESSION_ID_SOURCE); // session来源与url
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, token);
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
             return token;
@@ -121,6 +121,8 @@ public class SessionManager extends DefaultWebSessionManager {
         try {
             super.touch(key);
         } catch (InvalidSessionException e) {
+            e.printStackTrace();
+            logger.error("touch异常");
             // 获取不到SESSION不抛出异常
         }
     }

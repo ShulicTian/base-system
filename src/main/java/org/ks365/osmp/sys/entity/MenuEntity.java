@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,6 +26,8 @@ import java.util.List;
 @Table(name = "sys_menu")
 @EqualsAndHashCode(callSuper = true)
 public class MenuEntity extends BaseEntity {
+
+    private static final long serialVersionUID = 8008004308673141753L;
 
     @NotNull
     @Column(name = "parent_id", nullable = false, length = 11)
@@ -61,6 +61,9 @@ public class MenuEntity extends BaseEntity {
     @Column(name = "permission", length = 200)
     private String permission;
 
+    @Column(name = "type", length = 4)
+    private String type = "0";
+
     @Transient
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<MenuEntity> children;
@@ -75,13 +78,13 @@ public class MenuEntity extends BaseEntity {
         super(id);
     }
 
+    public MenuEntity(Integer id, Integer parentId) {
+        super(id);
+        this.parentId = parentId;
+    }
+
     @JsonIgnore
     public static String getRootId() {
         return "0";
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

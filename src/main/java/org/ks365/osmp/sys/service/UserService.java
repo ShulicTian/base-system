@@ -5,12 +5,14 @@ import org.ks365.osmp.common.utils.AuthUtils;
 import org.ks365.osmp.sys.dao.UserDao;
 import org.ks365.osmp.sys.dao.mapper.UserMapper;
 import org.ks365.osmp.sys.entity.UserEntity;
+import org.ks365.osmp.sys.utils.UserUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,10 +36,10 @@ public class UserService {
     public UserEntity getUserByUserName(String userName) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userName);
-        return getOneByColunm(userEntity);
+        return getOneByColumn(userEntity);
     }
 
-    public Page<UserEntity> getListByColunm(UserEntity userEntity) {
+    public Page<UserEntity> getPageByColumn(UserEntity userEntity) {
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().
                 withMatcher("name", ExampleMatcher.GenericPropertyMatcher::contains).
                 withMatcher("username", ExampleMatcher.GenericPropertyMatcher::contains).
@@ -47,7 +49,17 @@ public class UserService {
         return userDao.findAll(example, PageRequest.of(userEntity.getPage() - 1, userEntity.getSize(), Sort.by("name", "username")));
     }
 
-    public UserEntity getOneByColunm(UserEntity userEntity) {
+    public List<UserEntity> getListByColumn(UserEntity userEntity) {
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().
+                withMatcher("name", ExampleMatcher.GenericPropertyMatcher::contains).
+                withMatcher("username", ExampleMatcher.GenericPropertyMatcher::contains).
+                withMatcher("idCard", ExampleMatcher.GenericPropertyMatcher::contains).
+                withMatcher("mobile", ExampleMatcher.GenericPropertyMatcher::contains);
+        Example<UserEntity> example = Example.of(userEntity, exampleMatcher);
+        return userDao.findAll(example);
+    }
+
+    public UserEntity getOneByColumn(UserEntity userEntity) {
         Example<UserEntity> example = Example.of(userEntity);
         Optional<UserEntity> optional = userDao.findOne(example);
         if (optional.isPresent()) {
@@ -65,7 +77,7 @@ public class UserService {
     public UserEntity getById(Integer id) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(id);
-        return getOneByColunm(userEntity);
+        return getOneByColumn(userEntity);
     }
 
     @CacheEvict(value = "userName", key = "#userEntity.getId()")
@@ -87,7 +99,7 @@ public class UserService {
         return userDao.getUserNameById(id);
     }
 
-    @CacheEvict(value = "userName", key = "#id")
+    @CacheEvict(value = "userName", key = "#userEntity.getId()")
     @Transactional(readOnly = false)
     public void updateUserInfo(UserEntity userEntity) {
         userMapper.updateUserInfo(userEntity);
@@ -97,11 +109,16 @@ public class UserService {
     public void updatePassword(UserEntity userEntity) {
         userEntity.setPassword(AuthUtils.entryptPassword(userEntity.getPassword()));
         userDao.updatePassword(userEntity);
+        UserUtils.clearCache();
         SecurityUtils.getSubject().logout();
     }
 
     public Boolean isExist(UserEntity userEntity) {
         Example<UserEntity> example = Example.of(userEntity);
         return userDao.exists(example);
+    }
+
+    public List<UserEntity> findListBySelector(UserEntity userEntity) {
+        return userMapper.findListBySelector(userEntity);
     }
 }

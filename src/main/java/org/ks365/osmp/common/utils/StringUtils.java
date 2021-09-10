@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.common.utils;
 
 import com.google.common.collect.Lists;
@@ -397,4 +395,64 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return result.toString();
     }
 
+    public static String humpToLine(String str) {
+        Pattern humpPattern = Pattern.compile("[A-Z]");
+        Matcher matcher = humpPattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, "-" + matcher.group(0).toLowerCase());
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    public static boolean isNotNull(Integer pageNum) {
+        return !isNull(pageNum);
+    }
+
+    public static boolean isNotNull(Object o) {
+        return !isNull(o);
+    }
+
+    /**
+     * * 判断一个对象是否为空
+     *
+     * @param object Object
+     * @return true：为空 false：非空
+     */
+    public static boolean isNull(Object object) {
+        return object == null;
+    }
+
+    public static String getRate(int a, int b) {
+        if (b == 0 || a == 0) {
+            return "0%";
+        }
+        float rate = a / (float) b * 100;
+        return String.format("%.2f", rate) + "%";
+    }
+
+    public static String matchIdCard(String idCard) {
+        String pattern = "\\d{18}|(\\d{17}X$)|([A-Z^]\\d{9})|([A-Z]{2}\\d{6}\\(([A-Z]|\\d)\\))|([A-Z]\\d{6}\\(([A-Z]|\\d)\\))";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(idCard);
+        if (m.find()) {
+            return m.group();
+        }
+        return null;
+    }
+
+    public static String matchMobile(String mobile) {
+        String pattern = "\\d{11}";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(mobile);
+        if (m.find()) {
+            return m.group();
+        }
+        return null;
+    }
+
+    public static String deleteNull(String str) {
+        return str.replace("null", "");
+    }
 }

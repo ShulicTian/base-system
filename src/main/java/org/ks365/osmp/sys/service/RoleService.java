@@ -34,7 +34,7 @@ public class RoleService {
     public RoleEntity getRoleByName(String name) {
         RoleEntity roleEntity = new RoleEntity();
         roleEntity.setName(name);
-        return getOneByColunm(roleEntity);
+        return getOneByColumn(roleEntity);
     }
 
     /**
@@ -46,20 +46,20 @@ public class RoleService {
     public RoleEntity getRoleByEnName(String enName) {
         RoleEntity roleEntity = new RoleEntity();
         roleEntity.setEnName(enName);
-        return getOneByColunm(roleEntity);
+        return getOneByColumn(roleEntity);
     }
 
-    public Page<RoleEntity> getPageByColunm(RoleEntity roleEntity) {
+    public Page<RoleEntity> getPageByColumn(RoleEntity roleEntity) {
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().
                 withMatcher("name", ExampleMatcher.GenericPropertyMatcher::contains).
                 withMatcher("enName", ExampleMatcher.GenericPropertyMatcher::contains);
         Example<RoleEntity> example = Example.of(roleEntity, exampleMatcher);
-        return roleDao.findAll(example, PageRequest.of(roleEntity.getPage() - 1, roleEntity.getSize(), Sort.by("name")));
+        return roleDao.findAll(example, PageRequest.of(roleEntity.getPage() - 1, roleEntity.getSize(), Sort.by("roleType").and(Sort.by("enName"))));
     }
 
-    public List<RoleEntity> getListByColunm(RoleEntity roleEntity) {
+    public List<RoleEntity> getListByColumn(RoleEntity roleEntity) {
         Example<RoleEntity> example = Example.of(roleEntity);
-        return roleDao.findAll(example);
+        return roleDao.findAll(example, Sort.by("roleType").and(Sort.by("enName")));
     }
 
     @Cacheable(value = "roleList", key = "'all'")
@@ -67,7 +67,7 @@ public class RoleService {
         return roleDao.findAll();
     }
 
-    public RoleEntity getOneByColunm(RoleEntity roleEntity) {
+    public RoleEntity getOneByColumn(RoleEntity roleEntity) {
         Example<RoleEntity> example = Example.of(roleEntity);
         Optional<RoleEntity> optional = roleDao.findOne(example);
         if (optional.isPresent()) {
@@ -91,6 +91,13 @@ public class RoleService {
     @Transactional(readOnly = false)
     public void delete(RoleEntity roleEntity) {
         roleDao.delete(roleEntity);
+    }
+
+    @CacheEvict(value = "roleList", allEntries = true)
+    @Transactional(readOnly = false)
+    public void delete(Integer id) {
+        roleDao.deleteWithUser(id);
+        deleteById(id);
     }
 
     @CacheEvict(value = "roleList", allEntries = true)

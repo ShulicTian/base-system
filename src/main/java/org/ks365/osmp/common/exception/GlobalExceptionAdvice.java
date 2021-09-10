@@ -1,10 +1,12 @@
 package org.ks365.osmp.common.exception;
 
+import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.ks365.osmp.common.entity.ResponseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.redis.RedisSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,8 +26,17 @@ import java.util.stream.Collectors;
 public class GlobalExceptionAdvice {
     private static final int SESSION_EXPIRE = 401;
     private static final int UNAUTHORIZED = 302;
+    private static final int UNAVAILABLE_SECURITY_MANAGER = 404;
 
     Logger logger = LoggerFactory.getLogger(Exception.class);
+
+    @ResponseBody
+    @ExceptionHandler(RedisSystemException.class)
+    public ResponseEntity RedisSystemException(RedisSystemException e) {
+        String message = e.getMessage();
+        logger.warn("Redis链接异常\n{}", message);
+        return new ResponseEntity().faild("Redis链接异常");
+    }
 
     @ResponseBody
     @ExceptionHandler(ConstraintViolationException.class)
@@ -40,6 +51,7 @@ public class GlobalExceptionAdvice {
     public ResponseEntity paramValidate(MethodArgumentNotValidException e) {
         String message = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining());
         logger.warn(message);
+        e.printStackTrace();
         return new ResponseEntity().faild(message);
     }
 
@@ -52,6 +64,15 @@ public class GlobalExceptionAdvice {
         return responseEntity.faild("暂无调用权限" + e.getMessage().replace("Subject does not have permission", ""));
     }
 
+    @ResponseBody
+    @ExceptionHandler(UnavailableSecurityManagerException.class)
+    public ResponseEntity unavailableSecurityManager(UnavailableSecurityManagerException e, HttpServletResponse response) {
+        logger.warn("未找到该接口 {}", e.getMessage());
+        ResponseEntity responseEntity = new ResponseEntity();
+        response.setStatus(UNAVAILABLE_SECURITY_MANAGER);
+        return responseEntity.faild("未找到该接口" + e.getMessage());
+    }
+
     @ExceptionHandler(SessionExpireException.class)
     public void loginTimeout(HttpServletResponse response) {
         logger.warn("session失效");
@@ -62,9 +83,10 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity error(Exception e, HttpServletResponse response) {
         logger.error("请求异常");
+        logger.error(e.getMessage());
         e.printStackTrace();
         response.setStatus(500);
-        return new ResponseEntity().faild("请求异常");
+        return new ResponseEntity().faild(e.getMessage());
     }
 
 }

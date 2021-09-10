@@ -36,7 +36,7 @@ public class LogService {
         return logDao.findAll();
     }
 
-    public Page<LogEntity> getPageByColunm(LogEntity logEntity) {
+    public Page<LogEntity> getPageByColumn(LogEntity logEntity) {
         Specification<LogEntity> specification = (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
             if (logEntity.getCreateDate() != null) {
@@ -50,12 +50,12 @@ public class LogService {
         return logDao.findAll(specification, PageRequest.of(logEntity.getPage() - 1, logEntity.getSize(), Sort.by("createDate").descending()));
     }
 
-    public List<LogEntity> getListByColunm(LogEntity logEntity) {
+    public List<LogEntity> getListByColumn(LogEntity logEntity) {
         Example<LogEntity> example = Example.of(logEntity);
         return logDao.findAll(example);
     }
 
-    public LogEntity getOneByColunm(LogEntity logEntity) {
+    public LogEntity getOneByColumn(LogEntity logEntity) {
         Example<LogEntity> example = Example.of(logEntity);
         Optional<LogEntity> optional = logDao.findOne(example);
         if (optional.isPresent()) {

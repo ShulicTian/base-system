@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -8,12 +6,9 @@ import org.ks365.osmp.common.ctrl.BaseController;
 import org.ks365.osmp.common.entity.ResponseEntity;
 import org.ks365.osmp.sys.entity.AreaEntity;
 import org.ks365.osmp.sys.service.AreaService;
-import org.ks365.osmp.sys.utils.AreaUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 区域管理
@@ -33,7 +28,7 @@ public class AreaController extends BaseController {
     @RequiresPermissions("sys:area:view")
     @PostMapping("list")
     public ResponseEntity<List<AreaEntity>> list(@RequestBody AreaEntity areaEntity) {
-        return new ResponseEntity<List<AreaEntity>>().ok("获取成功").result(areaService.getListByColunm(areaEntity));
+        return new ResponseEntity<List<AreaEntity>>().ok("获取成功").result(areaService.getListByColumn(areaEntity));
     }
 
     @RequiresPermissions("sys:area:edit")

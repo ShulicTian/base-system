@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,20 +24,16 @@ public class SystemParamService {
         return systemParamDao.findAll();
     }
 
-    public Page<SystemParamEntity> getListByColunm(SystemParamEntity systemParamEntity) {
+    public Page<SystemParamEntity> getListByColumn(SystemParamEntity systemParamEntity) {
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().
                 withMatcher("paramName", ExampleMatcher.GenericPropertyMatcher::contains);
         Example<SystemParamEntity> example = Example.of(systemParamEntity, exampleMatcher);
         return systemParamDao.findAll(example, PageRequest.of(systemParamEntity.getPage() - 1, systemParamEntity.getSize(), Sort.by("paramName").and(Sort.by("updateDate").descending())));
     }
 
-    public SystemParamEntity getOneByColunm(SystemParamEntity systemParamEntity) {
+    public SystemParamEntity getOneByColumn(SystemParamEntity systemParamEntity) {
         Example<SystemParamEntity> example = Example.of(systemParamEntity);
-        Optional<SystemParamEntity> optional = systemParamDao.findOne(example);
-        if (optional.isPresent()) {
-            return optional.get();
-        }
-        return null;
+        return systemParamDao.findOne(example).orElse(null);
     }
 
     @CacheEvict(value = "sysParamList", allEntries = true)

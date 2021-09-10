@@ -1,11 +1,10 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.common.utils;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -20,6 +19,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		"yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm", "yyyy/MM",
 		"yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
 
+	public static String YYYY_MM_DD = "yyyy-MM-dd";
 	/**
 	 * 得到当前日期字符串 格式（yyyy-MM-dd）
 	 */
@@ -33,7 +33,16 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	public static String getDate(String pattern) {
 		return DateFormatUtils.format(new Date(), pattern);
 	}
-	
+
+
+	public static final String dateTime(final Date date) {
+		return parseDateToStr(YYYY_MM_DD, date);
+	}
+
+	public static final String parseDateToStr(final String format, final Date date) {
+		return new SimpleDateFormat(format).format(date);
+	}
+
 	/**
 	 * 得到日期字符串 默认格式（yyyy-MM-dd） pattern可以为："yyyy-MM-dd" "HH:mm:ss" "E"
 	 */

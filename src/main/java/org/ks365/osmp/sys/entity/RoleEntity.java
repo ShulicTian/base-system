@@ -1,8 +1,9 @@
 package org.ks365.osmp.sys.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.ks365.osmp.common.entity.BaseEntity;
 
 import javax.persistence.*;
@@ -21,6 +22,13 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(callSuper = true)
 public class RoleEntity extends BaseEntity {
 
+    public RoleEntity() {
+    }
+
+    public RoleEntity(Integer id) {
+        super(id);
+    }
+
     private static final long serialVersionUID = -8999404061222312253L;
 
     @Column(name = "name", nullable = false, length = 100)
@@ -32,9 +40,10 @@ public class RoleEntity extends BaseEntity {
     @Column(name = "role_type", nullable = false, length = 2)
     private String roleType;
 
-    @Column(name = "useable", length = 2)
-    private String useable;
+    @Column(name = "usable", length = 2)
+    private String usable;
 
+    @Fetch(value = FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(
             name = "sys_role_menu",
@@ -46,12 +55,9 @@ public class RoleEntity extends BaseEntity {
     @Transient
     private List<Integer> menuIdList;
 
-    public RoleEntity() {
-    }
+    @Transient
+    private String roleTypes;
 
-    public RoleEntity(Integer id) {
-        super(id);
-    }
 
     public List<Integer> getMenuIdList() {
         if (this.menuIdList == null) {

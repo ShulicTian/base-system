@@ -1,6 +1,8 @@
 package org.ks365.osmp.common.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.ks365.osmp.sys.utils.UserUtils;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -12,6 +14,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+
 /**
  * 基础实体类
  *
@@ -20,9 +23,13 @@ import java.util.Date;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
+@EqualsAndHashCode(callSuper = true)
 public abstract class BaseEntity extends PageEntity implements Serializable {
 
     private static final long serialVersionUID = 1696585240691336635L;
+
+    @Transient
+    private Integer[] ids;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +57,9 @@ public abstract class BaseEntity extends PageEntity implements Serializable {
     @Column(name = "flag", columnDefinition = "char(2) not null default 0")
     protected String flag = "0";
 
+    @Column(name = "remarks")
+    protected String remarks;
+
     public BaseEntity() {
     }
 
@@ -57,4 +67,31 @@ public abstract class BaseEntity extends PageEntity implements Serializable {
         this.id = id;
     }
 
+    public void preInsert(Integer userId) {
+        this.createBy = userId;
+        this.updateBy = userId;
+        this.createDate = new Date();
+        this.updateDate = new Date();
+
+    }
+
+    public void preUpdate(Integer userId) {
+        this.updateBy = userId;
+        this.updateDate = new Date();
+    }
+
+    public void preInsert() {
+        Integer userId = UserUtils.getCurrentUserId();
+        this.createBy = userId;
+        this.updateBy = userId;
+        this.createDate = new Date();
+        this.updateDate = new Date();
+
+    }
+
+    public void preUpdate() {
+        Integer userId = UserUtils.getCurrentUserId();
+        this.updateBy = userId;
+        this.updateDate = new Date();
+    }
 }

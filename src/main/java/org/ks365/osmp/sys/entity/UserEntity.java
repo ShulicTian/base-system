@@ -1,9 +1,8 @@
 package org.ks365.osmp.sys.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.ks365.osmp.common.entity.BaseEntity;
+import org.ks365.osmp.common.utils.AuthUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
  */
 @Data
 @Entity
-@Table(name = "sys_user")
+@Table(name = "sys_user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}), @UniqueConstraint(columnNames = {"mobile"}), @UniqueConstraint(columnNames = {"id_card"})})
 public class UserEntity extends BaseEntity {
 
     private static final long serialVersionUID = 7979908991330544237L;
@@ -77,11 +76,25 @@ public class UserEntity extends BaseEntity {
     @Transient
     private String token;
 
+    @Transient
+    private boolean rememberMe;
+
     public UserEntity() {
     }
 
     public UserEntity(Integer id) {
         super(id);
+    }
+
+    public UserEntity(String name, String username, String mobile, String idCard, String password) {
+        this.name = name;
+        this.username = username;
+        this.mobile = mobile;
+        this.idCard = idCard;
+        if (password.length() > 5) {
+            password = password.substring(password.length() - 6);
+        }
+        this.password = AuthUtils.entryptPassword(password);
     }
 
     public boolean isAdmin() {

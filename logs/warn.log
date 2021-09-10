@@ -1,16 +1,151 @@
-[09:22:50:838] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
-[09:22:50:838] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
-[09:22:55:267] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
-[09:22:55:275] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-bde378f5-f23d-4315-89b3-8b97c1690ea0
-[09:27:42:436] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
-[09:42:42:585] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
-[09:42:42:697] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
-[09:59:40:809] [WARN] - org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:166) - No MyBatis mapper was found in '[org.ks365.osmp.**.dao.mapper]' package. Please check your configuration.
-[10:00:40:946] [WARN] - org.mybatis.spring.mapper.ClassPathMapperScanner.doScan(ClassPathMapperScanner.java:166) - No MyBatis mapper was found in '[org.ks365.osmp.**.dao.mapper]' package. Please check your configuration.
-[10:00:40:963] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
-[10:01:00:486] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
-[10:01:00:493] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
-[10:01:02:787] [WARN] - org.ks365.osmp.common.security.session.CacheSessionDAO.readSession(CacheSessionDAO.java:117) - 登录失效-null
-[11:05:49:862] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
-[11:05:53:010] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
-[11:05:56:008] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:64) - 请求异常
+[09:31:25:635] [WARN] - org.springframework.context.support.AbstractApplicationContext.__refresh(AbstractApplicationContext.java:559) - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [org.ks365.osmp.OsmpApplication]; nested exception is java.io.FileNotFoundException: class path resource [baidu.properties] cannot be opened because it does not exist
+[09:31:25:678] [ERROR] - org.springframework.boot.SpringApplication.reportFailure(SpringApplication.java:837) - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [org.ks365.osmp.OsmpApplication]; nested exception is java.io.FileNotFoundException: class path resource [baidu.properties] cannot be opened because it does not exist
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:188) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:319) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:236) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:280) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:96) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:707) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.__refresh(AbstractApplicationContext.java:533) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.jrLockAndRefresh(AbstractApplicationContext.java:40002) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:41008) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-2.3.2.RELEASE.jar:2.3.2.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758) ~[spring-boot-2.3.2.RELEASE.jar:2.3.2.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) [spring-boot-2.3.2.RELEASE.jar:2.3.2.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.3.2.RELEASE.jar:2.3.2.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-2.3.2.RELEASE.jar:2.3.2.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.2.RELEASE.jar:2.3.2.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.2.RELEASE.jar:2.3.2.RELEASE]
+	at org.ks365.osmp.OsmpApplication.main(OsmpApplication.java:20) [classes/:?]
+Caused by: java.io.FileNotFoundException: class path resource [baidu.properties] cannot be opened because it does not exist
+	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:180) ~[spring-core-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.core.io.support.EncodedResource.getReader(EncodedResource.java:143) ~[spring-core-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:95) ~[spring-core-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.core.io.support.PropertiesLoaderUtils.fillProperties(PropertiesLoaderUtils.java:73) ~[spring-core-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.core.io.support.PropertiesLoaderUtils.loadProperties(PropertiesLoaderUtils.java:59) ~[spring-core-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.core.io.support.ResourcePropertySource.<init>(ResourcePropertySource.java:67) ~[spring-core-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.core.io.support.DefaultPropertySourceFactory.createPropertySource(DefaultPropertySourceFactory.java:37) ~[spring-core-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.processPropertySource(ConfigurationClassParser.java:462) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:279) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:249) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:198) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:303) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:249) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:206) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:174) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	... 16 more
+[09:59:14:199] [ERROR] - org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:175) - Servlet.service() for servlet [dispatcherServlet] in context with path [/osmp] threw exception [redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool] with root cause
+redis.clients.jedis.exceptions.JedisDataException: ERR Client sent AUTH, but no password is set
+	at redis.clients.jedis.Protocol.processError(Protocol.java:132) ~[jedis-3.3.0.jar:?]
+	at redis.clients.jedis.Protocol.process(Protocol.java:166) ~[jedis-3.3.0.jar:?]
+	at redis.clients.jedis.Protocol.read(Protocol.java:220) ~[jedis-3.3.0.jar:?]
+	at redis.clients.jedis.Connection.readProtocolWithCheckingBroken(Connection.java:278) ~[jedis-3.3.0.jar:?]
+	at redis.clients.jedis.Connection.getStatusCodeReply(Connection.java:196) ~[jedis-3.3.0.jar:?]
+	at redis.clients.jedis.BinaryJedis.auth(BinaryJedis.java:2269) ~[jedis-3.3.0.jar:?]
+	at redis.clients.jedis.JedisFactory.makeObject(JedisFactory.java:134) ~[jedis-3.3.0.jar:?]
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:861) ~[commons-pool2-2.3.jar:2.3]
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435) ~[commons-pool2-2.3.jar:2.3]
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363) ~[commons-pool2-2.3.jar:2.3]
+	at redis.clients.jedis.util.Pool.getResource(Pool.java:50) ~[jedis-3.3.0.jar:?]
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:288) ~[jedis-3.3.0.jar:?]
+	at org.crazycake.shiro.RedisManager.getJedis(RedisManager.java:44) ~[shiro-redis-2.8.12.jar:?]
+	at org.crazycake.shiro.BaseRedisManager.set(BaseRedisManager.java:64) ~[shiro-redis-2.8.12.jar:?]
+	at org.crazycake.shiro.RedisSessionDAO.saveSession(RedisSessionDAO.java:65) ~[shiro-redis-2.8.12.jar:?]
+	at org.crazycake.shiro.RedisSessionDAO.doCreate(RedisSessionDAO.java:106) ~[shiro-redis-2.8.12.jar:?]
+	at org.apache.shiro.session.mgt.eis.AbstractSessionDAO.create(AbstractSessionDAO.java:116) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.session.mgt.DefaultSessionManager.create(DefaultSessionManager.java:177) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.session.mgt.DefaultSessionManager.doCreateSession(DefaultSessionManager.java:158) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.session.mgt.AbstractValidatingSessionManager.createSession(AbstractValidatingSessionManager.java:136) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.session.mgt.AbstractNativeSessionManager.start(AbstractNativeSessionManager.java:99) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.mgt.SessionsSecurityManager.start(SessionsSecurityManager.java:152) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.subject.support.DelegatingSubject.getSession(DelegatingSubject.java:340) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.subject.support.DelegatingSubject.getSession(DelegatingSubject.java:316) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.util.WebUtils.saveRequest(WebUtils.java:607) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.filter.AccessControlFilter.saveRequest(AccessControlFilter.java:208) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.filter.AccessControlFilter.saveRequestAndRedirectToLogin(AccessControlFilter.java:191) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.filter.authc.UserFilter.onAccessDenied(UserFilter.java:66) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.filter.AccessControlFilter.onAccessDenied(AccessControlFilter.java:133) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.filter.AccessControlFilter.onPreHandle(AccessControlFilter.java:162) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.filter.PathMatchingFilter.isFilterChainContinued(PathMatchingFilter.java:203) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.filter.PathMatchingFilter.preHandle(PathMatchingFilter.java:178) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:131) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387) ~[shiro-core-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[shiro-web-1.4.2.jar:1.4.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.StandardContextValve.__invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:41002) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_191]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_191]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.37.jar:9.0.37]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_191]
+[10:00:49:783] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:00:49:784] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:00:50:921] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:00:50:921] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:00:52:598] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:00:52:598] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:01:12:684] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:01:12:685] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:01:13:879] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:01:13:880] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:04:48:516] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:04:48:527] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:06:02:842] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:06:02:851] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:07:36:524] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:07:36:531] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:08:22:020] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:08:22:026] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:11:18:414] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:11:18:419] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Could not get a resource from the pool
+[10:12:26:878] [WARN] - org.ks365.osmp.sys.web.SystemController.login(SystemController.java:86) - 密码错误
+[10:14:06:114] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:14:06:115] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Index: 0, Size: 0
+[10:14:11:434] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:14:11:435] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Index: 0, Size: 0
+[10:14:19:056] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:14:19:056] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Index: 0, Size: 0
+[10:16:09:987] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:16:09:988] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Index: 0, Size: 0
+[10:16:35:487] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:16:35:487] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Index: 0, Size: 0
+[10:16:51:890] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:16:51:891] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Index: 0, Size: 0
+[10:17:02:994] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:85) - 请求异常
+[10:17:02:995] [ERROR] - org.ks365.osmp.common.exception.GlobalExceptionAdvice.error(GlobalExceptionAdvice.java:86) - Index: 0, Size: 0
+[10:17:07:135] [WARN] - org.ks365.osmp.sys.web.SystemController.login(SystemController.java:86) - 密码错误
+[10:21:59:272] [WARN] - org.ks365.osmp.sys.web.SystemController.login(SystemController.java:86) - 密码错误
+[10:22:57:162] [WARN] - org.ks365.osmp.sys.web.SystemController.login(SystemController.java:86) - 密码错误
+[10:24:58:493] [WARN] - org.ks365.osmp.sys.web.SystemController.login(SystemController.java:86) - 密码错误

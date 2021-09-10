@@ -10,4 +10,75 @@
             email     = #{email}
         WHERE id = #{id}
     </update>
+
+    <select id="findListBySelector" resultType="org.ks365.osmp.sys.entity.UserEntity">
+        SELECT id, `name` AS 'name', `username` AS 'username', mobile
+        FROM sys_user
+        WHERE flag = #{flag}
+    </select>
+
+    <select id="getByMobile" resultType="org.ks365.osmp.sys.entity.UserEntity">
+        SELECT *
+        FROM sys_user
+        WHERE mobile = #{mobile}
+           OR username = #{mobile}
+        LIMIT 1
+    </select>
+
+    <resultMap id="userMap" type="org.ks365.osmp.sys.entity.UserEntity">
+        <id column="id" property="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="update_date" property="updateDate"></result>
+        <result column="flag" property="flag"></result>
+        <result column="nike_name" property="nikeName"></result>
+        <result column="name" property="name"></result>
+        <result column="username" property="username"></result>
+        <result column="mobile" property="mobile"></result>
+        <result column="id_card" property="idCard"></result>
+        <result column="password" property="password"></result>
+        <result column="photo" property="photo"></result>
+        <result column="email" property="email"></result>
+        <result column="login_ip" property="loginIp"></result>
+        <result column="login_date" property="loginDate"></result>
+        <result column="create_by" property="createBy"></result>
+        <result column="update_by" property="updateBy"></result>
+        <result column="remarks" property="remarks"></result>
+        <collection property="roleList" ofType="org.ks365.osmp.sys.entity.RoleEntity">
+            <id column="role_id" property="id"></id>
+        </collection>
+    </resultMap>
+    <select id="getUserByUserNameAndPhone" resultMap="userMap">
+        SELECT DISTINCT temp.id,
+                        temp.create_date,
+                        temp.update_date,
+                        temp.flag,
+                        temp.nike_name,
+                        temp.name,
+                        temp.username,
+                        temp.mobile,
+                        temp.id_card,
+                        temp.password,
+                        temp.photo,
+                        temp.email,
+                        temp.login_ip,
+                        temp.login_date,
+                        temp.create_by,
+                        temp.update_by,
+                        temp.remarks,
+                        t1.role_id
+        FROM (
+                 select *
+                 from sys_user
+                 WHERE username = #{username}
+                 UNION
+                 select *
+                 from sys_user
+                 WHERE mobile = #{phone}
+                 UNION
+                 select *
+                 from sys_user
+                 WHERE id_card = #{username}
+             ) temp
+                 LEFT JOIN sys_user_role t1 ON t1.user_id = temp.id
+    </select>
 </mapper>

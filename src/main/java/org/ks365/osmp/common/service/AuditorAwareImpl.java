@@ -18,7 +18,7 @@ public class AuditorAwareImpl implements AuditorAware<Integer> {
     public Optional<Integer> getCurrentAuditor() {
         Integer id = UserUtils.getCurrentUserId();
         if (id == null) {
-            id = 0;
+            id = 1;
         }
         return Optional.of(id);
     }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ks365.osmp.sys.dao.mapper.AreaMapper">
+    <sql id="areaColumns">
+        t1.id AS 'id',
+        t1.`code` AS 'code',
+        t1.`name` AS 'name',
+        t1.sort AS 'sort',
+        t1.type AS 'type',
+        t1.parent_id AS 'parentId',
+        t1.parent_ids AS 'parentIds',
+        t1.create_date AS 'createDate',
+        t1.create_by AS 'createBy',
+        t1.update_date AS 'updateDate',
+        t1.update_by AS 'updateBy',
+        t1.flag AS 'flag'
+    </sql>
+    <select id="getByLikeName" resultType="org.ks365.osmp.sys.entity.AreaEntity">
+        SELECT
+        <include refid="areaColumns"/>
+        FROM sys_area t1
+        WHERE t1.name LIKE CONCAT('%', #{name}, '%')
+        AND t1.type &lt;= #{level}
+        AND t1.flag = 0
+        ORDER BY t1.type DESC
+        LIMIT 1
+    </select>
+    <select id="getByLikeCode" resultType="org.ks365.osmp.sys.entity.AreaEntity">
+        SELECT
+        <include refid="areaColumns"/>
+        FROM sys_area t1
+        WHERE t1.code LIKE CONCAT(#{code}, '%')
+        AND t1.type &lt;= #{level}
+        AND t1.flag = 0
+        ORDER BY t1.type DESC
+        LIMIT 1
+    </select>
+
+</mapper>

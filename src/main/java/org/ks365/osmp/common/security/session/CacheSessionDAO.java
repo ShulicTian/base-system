@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.common.security.session;
 
 import com.google.common.collect.Sets;
@@ -29,7 +27,7 @@ import java.util.Set;
  */
 public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements SessionDAO {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public CacheSessionDAO() {
         super();
@@ -63,7 +61,6 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
         if (session == null || session.getId() == null) {
             return;
         }
-
         super.doDelete(session);
         logger.debug("delete {} ", session.getId());
     }

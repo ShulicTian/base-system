@@ -1,8 +1,10 @@
 package org.ks365.osmp.common.security;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -62,6 +64,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
             // 添加用户权限
             info.addStringPermission("user");
             // 添加用户角色信息
+            info.addRoles(user.getRoleList().stream().map(RoleEntity::getEnName).collect(Collectors.toList()));
             for (RoleEntity role : user.getRoleList()) {
                 info.addRole(role.getEnName());
                 // 添加菜单权限
@@ -129,7 +132,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
      */
     @PostConstruct
     public void initCredentialsMatcher() {
-        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher("SHA-1");
+        CredentialsMatcher matcher = new CredentialsMatcher("SHA-1");
         matcher.setHashIterations(1024);
         setCredentialsMatcher(matcher);
     }

@@ -1,10 +1,14 @@
 package org.ks365.osmp.sys.web;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.ks365.osmp.common.ctrl.BaseController;
 import org.ks365.osmp.common.entity.ResponseEntity;
+import org.ks365.osmp.common.security.UsernamePasswordToken;
 import org.ks365.osmp.common.utils.StringUtils;
 import org.ks365.osmp.sys.entity.UserEntity;
 import org.ks365.osmp.sys.entity.UserGroup;
@@ -37,10 +41,18 @@ public class SystemController extends BaseController {
      */
     @CrossOrigin
     @GetMapping(value = "login")
-    public ResponseEntity login(HttpServletResponse response) {
-        ResponseEntity responseEntity = new ResponseEntity();
+    public ResponseEntity<Object> login(HttpServletResponse response) {
+        ResponseEntity<Object> responseEntity = new ResponseEntity<Object>();
         responseEntity.faild("登录失效");
         response.setStatus(401);
+        return responseEntity;
+    }
+
+    @GetMapping(value = "unauthorized")
+    public ResponseEntity unauthorized(HttpServletResponse response) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        responseEntity.faild("您没有权限");
+        response.setStatus(302);
         return responseEntity;
     }
 
@@ -48,19 +60,19 @@ public class SystemController extends BaseController {
      * 登录
      *
      * @param userEntity
-     * @param rememberMe
      * @return
      */
     @PostMapping(value = "login")
-    public ResponseEntity<UserEntity> login(@RequestBody UserEntity userEntity, boolean rememberMe) {
-        ResponseEntity<UserEntity> result = new ResponseEntity();
+    public ResponseEntity<UserEntity> login(@RequestBody UserEntity userEntity) {
+        ResponseEntity<UserEntity> result = new ResponseEntity<>();
         if (StringUtils.isEmpty(userEntity.getUsername()) || StringUtils.isEmpty(userEntity.getPassword())) {
             return result.faild("账号密码不能为空");
         }
         UserEntity user = UserUtils.getByUserName(userEntity.getUsername());
         Subject currentUser = SecurityUtils.getSubject();
         if (!currentUser.isAuthenticated()) {
-            UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword().toCharArray(), rememberMe);
+
+            UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword().toCharArray(), userEntity.isRememberMe(), "");
             try {
                 currentUser.login(token);
                 user.setToken(String.valueOf(currentUser.getSession().getId()));
@@ -95,7 +107,7 @@ public class SystemController extends BaseController {
      */
     @GetMapping(value = "logout")
     public ResponseEntity<Boolean> logout() {
-        ResponseEntity<Boolean> result = new ResponseEntity();
+        ResponseEntity<Boolean> result = new ResponseEntity<>();
         Subject currentUser = SecurityUtils.getSubject();
         if (currentUser.isAuthenticated()) {
             UserUtils.clearCache();
@@ -114,9 +126,20 @@ public class SystemController extends BaseController {
      */
     @PostMapping(value = "registerUser")
     public ResponseEntity<UserEntity> registerUser(@RequestBody @Validated(UserGroup.class) UserEntity user) {
-        ResponseEntity<UserEntity> result = new ResponseEntity();
+        ResponseEntity<UserEntity> result = new ResponseEntity<>();
         user = systemService.registerUser(user);
         return result.ok("保存成功").result(user);
+    }
+
+    /**
+     * 获取当前用户
+     *
+     * @return
+     */
+    @PostMapping(value = "getCurrentUser")
+    public ResponseEntity<UserEntity> getCurrentUser() {
+        ResponseEntity<UserEntity> result = new ResponseEntity<>();
+        return result.ok("获取成功").result(UserUtils.getCurrentUser());
     }
 
 }

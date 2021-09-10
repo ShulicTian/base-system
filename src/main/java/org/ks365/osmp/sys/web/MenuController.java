@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.web;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -31,15 +29,14 @@ public class MenuController extends BaseController {
     }
 
     @PostMapping("getMenuList")
-    public ResponseEntity<List<MenuEntity>> getMenuList() {
-        return new ResponseEntity<List<MenuEntity>>().ok("获取成功").result(MenuUtils.getUserMenuList());
+    public ResponseEntity<List<MenuEntity>> getMenuList(@RequestBody MenuEntity menuEntity, Integer examId) {
+        return new ResponseEntity<List<MenuEntity>>().ok("获取成功").result(MenuUtils.getUserMenuListByType(menuEntity.getType()));
     }
 
     @RequiresPermissions("sys:menu:view")
     @PostMapping("list")
     public ResponseEntity<List<MenuEntity>> list(@RequestBody MenuEntity menuEntity) {
-        Set<MenuEntity> list = new HashSet<>();
-        list.addAll(menuService.getListByColunm(menuEntity));
+        Set<MenuEntity> list = new HashSet<>(menuService.getListByColumn(menuEntity));
         menuEntity.setId(0);
         MenuUtils.treeMenus(list, menuEntity);
         return new ResponseEntity<List<MenuEntity>>().ok("获取成功").result(menuEntity.getChildren());
@@ -54,7 +51,7 @@ public class MenuController extends BaseController {
     @RequiresPermissions("sys:menu:edit")
     @DeleteMapping("delete/{id}")
     public ResponseEntity delete(@PathVariable Integer id) {
-        menuService.deleteById(id);
+        menuService.delete(id);
         return new ResponseEntity().ok("保存成功");
     }
 

@@ -1,13 +1,10 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.ks365.osmp.common.entity.BaseEntity;
-import org.ks365.osmp.common.entity.PageEntity;
 import org.ks365.osmp.common.utils.StringUtils;
 
 import javax.persistence.Column;
@@ -44,13 +41,13 @@ public class LogEntity extends BaseEntity {
     @Column(name = "method")
     private String method;
 
-    @Column(name = "params")
+    @Column(name = "params", length = 1000)
     private String params;
 
-    @Column(name = "user_agent")
+    @Column(name = "user_agent", length = 1000)
     private String userAgent;
 
-    @Column(name = "exception")
+    @Column(name = "exception", length = 1000)
     private String exception;
 
     @Transient

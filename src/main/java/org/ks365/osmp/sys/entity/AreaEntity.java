@@ -1,6 +1,4 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
+
 package org.ks365.osmp.sys.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -69,10 +67,5 @@ public class AreaEntity extends BaseEntity {
         super(id);
         this.id = id;
         this.code = code;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }
